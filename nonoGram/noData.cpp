@@ -65,10 +65,11 @@ bool noData::getTextFiles(char *folder_path, std::vector<std::string> &list_to_f
 {
 	WIN32_FIND_DATA fdata;
 	HANDLE dhandle;
+
 	// måste lägga till \* till genvägen
 	{
 		char buf[MAX_PATH];
-		sprintf_s(buf, sizeof(buf), "%s\\*", folder_path);
+		sprintf_s(buf, sizeof(buf), "%s\\*.txt", folder_path);
 		if ((dhandle = FindFirstFile(buf, &fdata)) == INVALID_HANDLE_VALUE) {
 			return false;
 		}
@@ -77,7 +78,7 @@ bool noData::getTextFiles(char *folder_path, std::vector<std::string> &list_to_f
 	{
 		if (FindNextFile(dhandle, &fdata))
 		{
-			// vi vill endast ha ".bin"-filer
+			// vi vill endast ha ".txt"-filer
 			if (strlen(fdata.cFileName) > 4)
 			{
 				if (strcmp(&fdata.cFileName[strlen(fdata.cFileName) - 3], ".txt") == true)
