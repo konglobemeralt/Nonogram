@@ -10,13 +10,20 @@ noData::~noData()
 }
 
 noData::noData(const noData& other)
-{}
+{
+	size = other.size;
+	row = other.row;
+	column = other.column;
+	
+
+}
 
 void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList)
 {
-	noData tmp;
+	
 	for (int i = 0; i < TextFileList.size(); i++)
 	{	
+		noData tmp;
 		bool rowBool = true;
 
 		std::string filePath = "../textFiles/";
@@ -52,42 +59,44 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 
 
 					}
+					tmp.size.push_back(rows);
+					tmp.size.push_back(columns);
 				}
 			
-			//if (!line.compare(""))
-			//{
-			//	rowBool = false;
-			//}
-			//
-			//if (line.compare(""))
-			//{
-			//	
-			//	if (rowBool == true)
-			//	{
-			//		std::cout << atoi(line.c_str()) << std::endl;
-			//		tmp.row.push_back(atoi(line.c_str()));
-			//	
-			//	}
-			//
-			//	if (rowBool == false)
-			//	{
-			//		std::cout << atoi(line.c_str()) << std::endl;
-			//		tmp.column.push_back(atoi(line.c_str()));
-			//	}
-			//}
+			if (!line.compare(""))
+			{
+				rowBool = false;
+			}
+			
+			if (line.compare(""))
+			{
+				
+				if (rowBool == true)
+				{
+					std::cout << atoi(line.c_str()) << std::endl;
+					tmp.row.push_back(atoi(line.c_str()));
+				
+				}
+			
+				if (rowBool == false)
+				{
+					std::cout << atoi(line.c_str()) << std::endl;
+					tmp.column.push_back(atoi(line.c_str()));
+				}
+			}
 				lineCount++;
 			}
 			textData.close();
 
-			
+			noDataList_to_fill.push_back(tmp);
 
 		}
 		else std::cout << "Unable to open file" << std::endl;
 		
-		noDataList_to_fill.push_back(tmp);
+		
 		
 	
-		getchar();
+		
 	}
 };
 

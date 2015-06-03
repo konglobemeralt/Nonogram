@@ -20,8 +20,9 @@ public:
 	void getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList);
 	bool getTextFiles(char *folder_path, std::vector<std::string> &list_to_fill);
 
-private:
+public:
 	//actual data
+	std::vector<int>size;
 	std::vector<int>row;
 	std::vector<int>column;
 

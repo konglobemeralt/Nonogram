@@ -15,11 +15,12 @@ int main()
 
 	inputData.getTextFiles("../textFiles/", textFileList);
 	
-	
-
 	inputData.getData(noDataList, textFileList);
 	
-
+	for (int i = 0; i < noDataList.size(); i++)
+	{
+		std::cout << "Hej!";
+	}
   
   return 0;
 }
