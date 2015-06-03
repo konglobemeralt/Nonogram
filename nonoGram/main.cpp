@@ -10,6 +10,7 @@ int main()
 	std::vector<std::string> textFileList;
 	std::vector<noData> noDataList;
 
+
 	noData inputData;
 
 	inputData.getTextFiles("../textFiles/", textFileList);

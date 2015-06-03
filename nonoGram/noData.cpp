@@ -8,13 +8,14 @@ noData::~noData()
 {
 }
 
+noData::noData(const noData& other)
+{}
+
 void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList)
 {
-noData tmp;
+	noData tmp;
 	for (int i = 0; i < TextFileList.size(); i++)
 	{	
-		
-
 		bool rowBool = true;
 
 		std::string filePath = "../textFiles/";
@@ -22,7 +23,6 @@ noData tmp;
 		textData.open(filePath);
 		std::string line;
 		
-
 		if (textData.is_open())
 		{
 			std::cout << filePath << std::endl;
@@ -40,24 +40,27 @@ noData tmp;
 					if (rowBool == true)
 					{
 						std::cout << atoi(line.c_str()) << std::endl;
-						//noDataList_to_fill.at(i).row.push_back(atoi(line.c_str()));
+						tmp.row.push_back(atoi(line.c_str()));
+					
 					}
 
 					if (rowBool == false)
 					{
 						std::cout << atoi(line.c_str()) << std::endl;
-						//noDataList_to_fill.at(i).column.push_back(atoi(line.c_str()));
+						tmp.column.push_back(atoi(line.c_str()));
 					}
 				}
+
 			}
 			textData.close();
 
 			
 
 		}
-
-		
 		else std::cout << "Unable to open file" << std::endl;
+		
+		noDataList_to_fill.push_back(tmp);
+		
 	
 		getchar();
 	}

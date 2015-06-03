@@ -15,6 +15,7 @@ public:
 	//Const och Destr
 	noData();
 	~noData();
+	noData(const noData& other);
 
 	void getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList);
 	bool getTextFiles(char *folder_path, std::vector<std::string> &list_to_fill);
