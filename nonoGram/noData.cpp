@@ -32,6 +32,8 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 		std::string line;
 		
 		int lineCount = 0;
+		int lineCount2 = 0;
+
 		int rows = 0;
 		int columns = 0;
 
@@ -72,13 +74,17 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 			
 			else 
 			{
-				
+				if (lineCount2==rows && lineCount > 2)
+				{
+					rowBool = false;
+				}
+
 				if (rowBool == true)
 				{
 					std::cout << line << '\n';
 					//std::cout << atoi(line.c_str()) << std::endl;
 					tmp.row.push_back(atoi(line.c_str()));
-				
+					lineCount2++;
 				}
 			
 				if (rowBool == false)
