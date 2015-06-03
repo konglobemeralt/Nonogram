@@ -7,8 +7,11 @@
 using namespace std;
 int main()
 {
-
+	std::vector<std::string> textFileList;
+	
 	noData inputData;
+
+	inputData.getTextFiles("../textFiles/", textFileList);
 
 	inputData.getData();
   
