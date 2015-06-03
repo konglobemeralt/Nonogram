@@ -8,57 +8,59 @@ noData::~noData()
 {
 }
 
-void noData::getData()
+void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList)
 {
+noData tmp;
+	for (int i = 0; i < TextFileList.size(); i++)
+	{	
+		
 
-	bool rowBool = true;
-	textData.open("test.txt");
-	std::string line;
+		bool rowBool = true;
 
-	if (textData.is_open())
-	{
-		while (getline(textData, line))
+		std::string filePath = "../textFiles/";
+		filePath += TextFileList.at(i);
+		textData.open(filePath);
+		std::string line;
+		
+
+		if (textData.is_open())
 		{
-			// cout << line << '\n';
-			if (!line.compare(""))
+			std::cout << filePath << std::endl;
+			while (getline(textData, line))
 			{
-				rowBool = false;
-			}
-
-			if (line.compare(""))
-			{
-				if (rowBool == true)
+				// cout << line << '\n';
+				if (!line.compare(""))
 				{
-					row.push_back(atoi(line.c_str()));
+					rowBool = false;
 				}
 
-				if (rowBool == false)
+				if (line.compare(""))
 				{
-					column.push_back(atoi(line.c_str()));
+					
+					if (rowBool == true)
+					{
+						std::cout << atoi(line.c_str()) << std::endl;
+						//noDataList_to_fill.at(i).row.push_back(atoi(line.c_str()));
+					}
+
+					if (rowBool == false)
+					{
+						std::cout << atoi(line.c_str()) << std::endl;
+						//noDataList_to_fill.at(i).column.push_back(atoi(line.c_str()));
+					}
 				}
 			}
+			textData.close();
+
+			
+
 		}
-		textData.close();
+
+		
+		else std::cout << "Unable to open file" << std::endl;
+	
+		getchar();
 	}
-
-
-	else std::cout << "Unable to open file" << std::endl;;
-
-
-	std::cout << "ROW" << std::endl;
-	for (int i = 0; i < row.size(); i++)
-	{
-		std::cout << row.at(i) << std::endl;
-	}
-	getchar();
-	std::cout << "COLUMN" << std::endl;
-	for (int i = 0; i < column.size(); i++)
-	{
-		std::cout << column.at(i) << std::endl;
-	}
-
-	getchar();
-
 };
 
 bool noData::getTextFiles(char *folder_path, std::vector<std::string> &list_to_fill)
@@ -67,6 +69,7 @@ bool noData::getTextFiles(char *folder_path, std::vector<std::string> &list_to_f
 	HANDLE dhandle;
 
 	// måste lägga till \* till genvägen
+	//hitta alla txt filer.
 	{
 		char buf[MAX_PATH];
 		sprintf_s(buf, sizeof(buf), "%s\\*.txt", folder_path);
@@ -78,14 +81,15 @@ bool noData::getTextFiles(char *folder_path, std::vector<std::string> &list_to_f
 	{
 		if (FindNextFile(dhandle, &fdata))
 		{
-			// vi vill endast ha ".txt"-filer
-			if (strlen(fdata.cFileName) > 4)
-			{
-				if (strcmp(&fdata.cFileName[strlen(fdata.cFileName) - 3], ".txt") == true)
-				{
+//			// vi vill endast ha ".txt"-filer
+//			if (strlen(fdata.cFileName) > 4)
+//			{
+//				if (strcmp(&fdata.cFileName[strlen(fdata.cFileName) - 3], ".txt") == true)
+//				{
+			//Lägg i listan
 					list_to_fill.push_back(fdata.cFileName);
-				}
-			}
+//				}
+//			}
 		}
 		else
 		{
