@@ -40,13 +40,14 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 			std::cout << filePath << std::endl;
 			while (getline(textData, line))
 			{
-				std::cout << line << '\n';
+				//std::cout << line << '\n';
 				if (lineCount == 2)
 				{
 					std::istringstream is(line);
 
 					int n;
-					while (is >> n) {
+					while (is >> n) 
+					{
 						if (rows == 0)
 						{
 							rows = n;
@@ -62,29 +63,33 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 					tmp.size.push_back(rows);
 					tmp.size.push_back(columns);
 				}
+				
+				if ((line.find('#') != std::string::npos || line.find('?') != std::string::npos))
+					{
+						lineCount++;
+						continue;
+				}
 			
-			if (!line.compare(""))
-			{
-				rowBool = false;
-			}
-			
-			if (line.compare(""))
+			else 
 			{
 				
 				if (rowBool == true)
 				{
-					std::cout << atoi(line.c_str()) << std::endl;
+					std::cout << line << '\n';
+					//std::cout << atoi(line.c_str()) << std::endl;
 					tmp.row.push_back(atoi(line.c_str()));
 				
 				}
 			
 				if (rowBool == false)
 				{
-					std::cout << atoi(line.c_str()) << std::endl;
+					std::cout << line << '\n';
+					//std::cout << atoi(line.c_str()) << std::endl;
 					tmp.column.push_back(atoi(line.c_str()));
 				}
-			}
 				lineCount++;
+			}
+				
 			}
 			textData.close();
 
