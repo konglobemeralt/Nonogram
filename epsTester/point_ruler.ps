@@ -1,0 +1,62 @@
+%!PS-Adobe-2.0
+%% This program prints a ruler marked in Postcsript points (72nds of an inch).
+%% WARNING. Some printer drivers will attempt to resize this image, which
+%% will then print a ruler of incorrect dimensions. Always check the result
+%% against a known good ruler.
+%% Copyright Erik Ahlefeldt 2000. You are free to use this program
+%% for any non-commercial use, but you must get written permission
+%% from the author for commercial use, or if you wish to include it
+%% in any software package or distribution or collection for which
+%% money is charged.
+%
+% orientate printing diagonally across page
+50 28 translate 56 rotate
+%
+% initialize variables
+/str 5 string def
+/shortmark -7 def
+/mediummark -12 def
+/longmark -18 def
+/centre {dup stringwidth pop 2 div neg 0 rmoveto} def
+/xorig 0 def
+/yorig 36 def
+%
+% title
+/AvantGarde-Book findfont [30 0 0 10 0 0 ] makefont setfont
+300 yorig 48 sub moveto
+(Postscript  Point  Ruler) show
+% print lower edge line
+/xloc xorig def
+/yloc yorig 52 sub def 
+.5 setlinewidth 
+xloc yloc moveto xloc 900 add yloc lineto stroke
+%
+%   print 2 point marks
+/xloc xorig def
+/yloc yorig def
+450 {xloc yloc moveto 0 shortmark rlineto .2 setlinewidth stroke /xloc xloc 2 add def} repeat
+%
+%  print 10 point marks
+/xloc xorig def
+/yloc yorig def
+90 {xloc yloc moveto 0 mediummark rlineto .2 setlinewidth stroke /xloc xloc 10 add def} repeat
+% print 10 point numbers - leaving out the hundreds
+/AvantGarde-Book 7 selectfont
+/xloc xorig 20 add def
+/yloc yorig 18 sub def 
+/num 20 def
+44 {xloc yloc moveto num 100 mod 0 ne {num str cvs centre show} if /num num 20 add def /xloc xloc 20 add def} repeat
+%
+%  print 100 point marks
+/xloc xorig def
+/yloc yorig def
+10 {xloc yloc moveto 0 longmark rlineto .2 setlinewidth stroke /xloc xloc 100 add def} repeat
+% print 100 point numbers
+/AvantGarde-Book 12 selectfont
+/xloc xorig def
+/yloc yorig 28 sub def 
+/num 0 def
+10 {xloc yloc moveto num str cvs centre show /num num 100 add def /xloc xloc 100 add def} repeat
+%
+showpage
+%%EOF

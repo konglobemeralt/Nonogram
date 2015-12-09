@@ -1,0 +1,75 @@
+%!PS-Adobe-2.0
+%      watermark.ps
+%
+%      This Postscript code will place a watermark on all pages of a Postscript
+%      document. To use it, edit the code below and replace the word 
+%      "Draft" with whatever text you want watermarked on the pages.
+%      Then put this Postscript code on the front of your Postscript document
+%      and send it to the printer.
+%
+%      How it works:
+%      First, we create a temporary dictionary for our code. Then we create a 
+%      unique key that we can check for, to stop us loading the code multiple 
+%      times into the printer. Next, we save the original showpage defintion 
+%      (so that we can use it later), create a new showpage which first does an
+%      "original" showpage and then shows the watermark text (which will get
+%      printed by the following "original" showpage command). Then we end our
+%      redefinition of showpage ("newshowpage"). Finally, because we have
+%      missed out on a watermark on the first page of the document, we put 
+%      the watermark on the first page. The method that this program uses 
+%      is a common Postscript technique for modifying already existing
+%      Postscript output, you will probably find many other uses for this
+%      sort of thing.
+%
+%	Copyright Notice.
+%	Copyright (C) 1999 Erik Ahlefeldt.
+%       This code is copyright of the author (Erik Ahlefeldt). You are free to
+%	use and modify it, provided that such use is not for profit and provided
+%       you retain this copyright notice in full. You may not charge money for 
+%       this code, and you may not redistribute it in any package or collection 
+%       or software for which money is charged without the express permission
+%       of the author in writing.
+%
+/watermarkquery where
+{ pop }
+{ /newshowpage 10 dict def }
+ifelse
+
+newshowpage begin
+
+/watermarkquery dup where		
+{ pop false }
+{ true /origshowpage /showpage load def }
+ifelse def
+
+/showpage { newshowpage begin
+            origshowpage
+            gsave
+                initgraphics
+		.85 setgray
+		/Times-Roman 72 selectfont
+		100 100 750 {
+		306 exch moveto			       % move to centre of line
+		(Draft) dup	                       % watermark text
+		stringwidth pop 2 div neg 0 rmoveto    % centre text horizontal
+		show
+		}	for
+	    grestore
+	    end
+          } def end
+
+newshowpage /watermarkquery get
+{ newshowpage begin userdict begin } if
+%
+%      Finally print watermark on first page
+%
+gsave
+	.85 setgray
+	/Times-Roman 72 selectfont
+	100 100 750 {
+	306 exch moveto			       % move to centre of line
+	(Draft) dup                            % watermark text
+	stringwidth pop 2 div neg 0 rmoveto    % centre text horizontally
+	show
+	}	for
+grestore

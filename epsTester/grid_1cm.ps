@@ -1,0 +1,42 @@
+%!PS-Adobe-3.0 
+%% This program prints an isometric grid pattern with 1 centimetre spacing 
+%% suitable for isometric diagrams - usually school homework! It is sized
+%% for A4 paper. Replace the words "Your Name Here" near the end of the
+%% program, with your own name to have it printed in a small box on the 
+%% edge of the page of grid paper.
+%% Copyright Erik Ahlefeldt 2000. You are free to use this program
+%% for any non-commercial use, but you must get written permission
+%% from the author for commercial use, or if you wish to include it
+%% in any software package or distribution or collection for which
+%% money is charged.
+/Helvetica findfont 12 scalefont setfont
+/xstart 12 def
+/ystart 12 def
+/xinc 28.3464 def
+/yinc 49.0975 def
+30  { 21 {xstart ystart moveto (.) show /xstart xstart xinc add def} repeat /xstart 12 def /ystart ystart yinc add def} repeat
+/xstart 26.1732 def
+/ystart 36.5487 def 
+30  { 21 {xstart ystart moveto (.) show /xstart xstart xinc add def} repeat /xstart 26.1732 def /ystart ystart yinc add def} repeat
+%
+%%%%%%%%%%%%   If you do not want the signature box, cut from here   %%%%%%%%%%%
+%%   signature
+12 57 moveto
+30 57 lineto 
+30 12 lineto 
+12 12 lineto 
+12 57 lineto closepath
+gsave 
+	gsave 1 setgray fill grestore
+	0.4 setlinewidth stroke 
+grestore
+/Helvetica findfont 5 scalefont setfont
+12 57 translate
+-90 rotate
+10 11 moveto
+(Paper by) show
+10 5 moveto
+(Your Name Here) show
+%%%%%%%%%%%%                        to here                         %%%%%%%%%%%
+showpage
+%%EOF

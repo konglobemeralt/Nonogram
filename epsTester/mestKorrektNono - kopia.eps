@@ -1,0 +1,30 @@
+%!PS-Adobe-3.0 
+%%BoundingBox: 1 1 1 1
+
+/heol 579 def
+/veol 834 def
+%  draw horizontal lines 5mm apart
+/xstart 12 def
+/ystart 12 def
+
+%60 ska bli lodrätamängden
+60 { xstart ystart moveto heol ystart lineto 0.2 setlinewidth stroke /ystart ystart 7.370078742 add def} repeat
+%  draw vertical lines 5mm apart
+/xstart 12 def
+/ystart 12 def
+
+%40 ska bli vågräta
+40 { xstart ystart moveto xstart veol lineto 0.2 setlinewidth stroke /xstart xstart 7.370078742 add def} repeat
+
+%  now do bold lines 50mm apart (i.e. every 10th line )
+% räkna ut hur många
+/xstart 12 def
+/ystart 12 def
+
+6 { xstart ystart moveto heol ystart lineto 0.6 setlinewidth stroke /ystart ystart 73.70078742 add def} repeat
+/xstart 12 def
+/ystart 12 def
+
+5 { xstart ystart moveto xstart veol lineto 0.6 setlinewidth stroke /xstart xstart 73.70078742 add def} repeat
+showpage
+%%EOF
