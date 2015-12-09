@@ -1,0 +1,63 @@
+%!PS-Adobe-2.0
+%% This program prints a ruler marked in eigths of an inch, which is very
+%% useful for doing layouts of line printer stationery.
+%% WARNING. Some printer drivers will attempt to resize this image, which
+%% will then print a ruler of incorrect dimensions. Always check the result
+%% against a known good ruler.
+%% Copyright Erik Ahlefeldt 2000. You are free to use this program
+%% for any non-commercial use, but you must get written permission
+%% from the author for commercial use, or if you wish to include it
+%% in any software package or distribution or collection for which
+%% money is charged.
+%
+% orientate printing diagonally across page
+50 28 translate 56 rotate
+%
+% initialize variables
+/str 5 string def
+/shortmark -6 def
+/mediummark -12 def
+/longmark -18 def
+/centre {dup stringwidth pop 2 div neg 0 rmoveto} def
+/xorig 0 def
+/yorig 36 def
+%
+% description
+/Helvetica findfont [30 0 0 10 0 0 ] makefont setfont
+324 yorig 48 sub moveto
+(1/8 INCH RULER) show
+% print lower edge
+/xloc xorig def
+/yloc yorig 52 sub def 
+.5 setlinewidth 
+xloc yloc moveto xloc 936 add yloc lineto stroke
+%
+%   print one-eigth of inch marks
+/xloc xorig def
+/yloc yorig def
+105 {xloc yloc moveto 0 mediummark rlineto .2 setlinewidth stroke /xloc xloc 9 add def} repeat
+%
+%  print inch marks
+/xloc xorig def
+/yloc yorig def
+15 {xloc yloc moveto 0 longmark rlineto .2 setlinewidth stroke /xloc xloc 72 add def} repeat
+% print inch numbers
+/Helvetica 12 selectfont
+/xloc xorig def
+/yloc yorig 30 sub def 
+/num 0 def
+14 {xloc yloc moveto num str cvs centre show /num num 1 add def /xloc xloc 72 add def} repeat
+%
+% print one-eigth numbers
+/Helvetica 4.5 selectfont
+/xloc xorig 4.6 add def
+/yloc yorig 10 sub def 
+/num 1 def
+104 {xloc yloc moveto num str cvs centre show /num num 1 add def /xloc xloc 9 add def} repeat
+% print line underneath one-eigth numbers
+/Helvetica 5 selectfont
+/xloc xorig def
+/yloc yorig 12 sub def 
+newpath xloc yloc moveto 936 0 rlineto .2 setlinewidth stroke
+showpage
+%%EOF

@@ -21,9 +21,15 @@
     <ClCompile Include="noData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="epsOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="noData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="epsOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

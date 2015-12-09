@@ -1,0 +1,41 @@
+%!PS-Adobe-2.0
+
+51 .5 551
+{ /x exch def
+  111 .5 721
+  { /y exch def
+    y 521 sub
+    201 div
+    x 301 sub
+    201 div
+    1 index
+    1 index
+    31 -1 1
+    { /n exch def
+      1 index
+      dup mul
+      1 index
+      dup mul
+      1 index
+      1 index
+      add
+      /d exch def
+      sub
+      4 index add
+      3 1 roll
+      2 mul mul
+      2 index add
+      d 4 gt
+      {exit} if
+    } for
+    pop pop pop pop
+    n 31 div
+    setgray
+    x y moveto
+    .5 0 rlineto
+    0 .5 rlineto
+    -.5 0 rlineto
+    fill
+  } for
+} for
+showpage

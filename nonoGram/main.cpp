@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include "noData.h"
+#include "epsOutput.h"
 
 using namespace std;
 int main()
@@ -12,15 +13,20 @@ int main()
 
 
 	noData inputData;
+	epsOutput outputData;
 
-	inputData.getTextFiles("../textFiles/", textFileList);
+	std::cout << "Text files found and converted: \n";
+
+	inputData.getTextFiles(textFileList);
 	
 	inputData.getData(noDataList, textFileList);
 	
-	for (int i = 0; i < noDataList.size(); i++)
-	{
-		std::cout << "Hej!";
-	}
-  
+	outputData.createEPSfiles(noDataList, textFileList);
+	outputData.createSolutionEPSfiles(noDataList, textFileList);
+
+	std::cout << "\n";
+	std::cout << "Press any key to Exit...\n";
+	
+	
   return 0;
 }

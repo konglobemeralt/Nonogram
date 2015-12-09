@@ -18,13 +18,18 @@ public:
 	noData(const noData& other);
 
 	void getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList);
-	bool getTextFiles(char *folder_path, std::vector<std::string> &list_to_fill);
+	bool getTextFiles(std::vector<std::string> &list_to_fill);
 
 public:
 	//actual data
 	std::vector<int>size;
 	std::vector<int>row;
 	std::vector<int>column;
+	std::vector<char>picture;
+
+		int maxRow;
+		int maxColumn;
+
 
 	
 

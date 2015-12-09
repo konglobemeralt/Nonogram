@@ -3,6 +3,8 @@
 
 noData::noData()
 {
+	maxRow = 0;
+	maxColumn = 0;
 }
 
 noData::~noData()
@@ -14,42 +16,52 @@ noData::noData(const noData& other)
 	size = other.size;
 	row = other.row;
 	column = other.column;
-	
-
+	picture = other.picture;
+	maxRow = other.maxRow;
+	maxColumn = other.maxColumn;
 }
 
 void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::string> &TextFileList)
 {
+		int rows = 0;
+		int columns = 0;
+		bool rowBool = true;
 	
+		
+		int lineCount = 0;
+		int lineCount2 = 0;
+
 	for (int i = 0; i < TextFileList.size(); i++)
 	{	
 		noData tmp;
-		bool rowBool = true;
-
+		
+		//reset all counts
+		rows = 0;
+		columns = 0;
+		rowBool = true;
+		lineCount = 0;
+		lineCount2 = 0;
+		
 		std::string filePath = "../textFiles/";
 		filePath += TextFileList.at(i);
 		textData.open(filePath);
 		std::string line;
 		
-		int lineCount = 0;
-		int lineCount2 = 0;
-
-		int rows = 0;
-		int columns = 0;
-
 		if (textData.is_open())
 		{
-			std::cout << filePath << std::endl;
+			//std::cout << filePath << std::endl;
 			while (getline(textData, line))
 			{
 				//std::cout << line << '\n';
 				if (lineCount == 2)
 				{
 					std::istringstream is(line);
+					
 
 					int n;
 					while (is >> n) 
 					{
+						
 						if (rows == 0)
 						{
 							rows = n;
@@ -62,99 +74,132 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 
 
 					}
+					//The array Size
 					tmp.size.push_back(rows);
 					tmp.size.push_back(columns);
 				}
 				
 				if ((line.find('#') != std::string::npos || line.find('?') != std::string::npos))
 					{
+
+
+						char ch;
+						
+						//if (line.find('#') != std::string::npos)
+						//{
+							for (int a = 0; a < line.size(); a++)
+							{
+								ch = line.at(a);
+								if (ch != ' ')
+								{
+									tmp.picture.push_back(ch);
+								}
+						//	}
+						}
+
+
+						//tmp.picture.push_back(line);
 						lineCount++;
 						continue;
-				}
+					}
 			
 			else 
 			{
-				if (lineCount2==rows && lineCount > 2)
+				//beacause we get the size in the beginning
+				if (lineCount2 > rows+1  && lineCount > 2)
 				{
 					rowBool = false;
 				}
 
-				if (rowBool == true)
+				//To get rid of lines without data
+				if (rowBool == true && lineCount > 5)
 				{
-					std::cout << line << '\n';
-					//std::cout << atoi(line.c_str()) << std::endl;
-					tmp.row.push_back(atoi(line.c_str()));
-					lineCount2++;
+					int n;
+					int count = 0;
+
+					std::istringstream iss(line);
+					while (iss >> n)
+					{
+						tmp.row.push_back(n);
+						count++;
+						if (count > tmp.maxRow)
+						{
+							tmp.maxRow = count;
+						}
+
+
+					}
+					    tmp.row.push_back(-1);
+						lineCount2++;
+					
 				}
 			
-				if (rowBool == false)
+				if (rowBool == false && lineCount > 2)
 				{
-					std::cout << line << '\n';
-					//std::cout << atoi(line.c_str()) << std::endl;
-					tmp.column.push_back(atoi(line.c_str()));
+					int n;
+					int count = 0;
+
+					std::istringstream iss(line);
+					while (iss >> n)
+					{
+						tmp.column.push_back(n);
+						count++;
+						if (count > tmp.maxColumn)
+						{
+							tmp.maxColumn = count;
+						}
+					}
+					tmp.column.push_back(-1);
+				
+					
 				}
 				lineCount++;
 			}
-				
+			
+			
 			}
 			textData.close();
+
+			//getRidofExtre -1
+			tmp.column.pop_back();
+			tmp.row.pop_back();
 
 			noDataList_to_fill.push_back(tmp);
 
 		}
 		else std::cout << "Unable to open file" << std::endl;
 		
-		
-		
-	
-		
-	}
+		}
 };
 
-bool noData::getTextFiles(char *folder_path, std::vector<std::string> &list_to_fill)
+bool noData::getTextFiles(std::vector<std::string> &list_to_fill)
 {
-	WIN32_FIND_DATA fdata;
-	HANDLE dhandle;
 
-	// måste lägga till \* till genvägen
-	//hitta alla txt filer.
+	WIN32_FIND_DATA search_data;
+
+	memset(&search_data, 0, sizeof(WIN32_FIND_DATA));
+
+	HANDLE handle = FindFirstFile("..\\TextFiles\\*.txt", &search_data);
+
+	int count = 0;
+
+	std::cout << "\n";
+
+	while (handle != INVALID_HANDLE_VALUE)
 	{
-		char buf[MAX_PATH];
-		sprintf_s(buf, sizeof(buf), "%s\\*.txt", folder_path);
-		if ((dhandle = FindFirstFile(buf, &fdata)) == INVALID_HANDLE_VALUE) {
-			return false;
-		}
+		std::cout << "   " << ++count << ". " << search_data.cFileName << std::endl;
+
+		/* Here, you append another found file to the end of the vector.
+		* However, unlike arrays, you do NOT have to worry about resizing.
+		* The vector is resized for you!
+		*/
+		list_to_fill.push_back(std::string(search_data.cFileName));
+
+		if (FindNextFile(handle, &search_data) == FALSE)
+			break;
 	}
-	while (true)
-	{
-		if (FindNextFile(dhandle, &fdata))
-		{
-//			// vi vill endast ha ".txt"-filer
-//			if (strlen(fdata.cFileName) > 4)
-//			{
-//				if (strcmp(&fdata.cFileName[strlen(fdata.cFileName) - 3], ".txt") == true)
-//				{
-			//Lägg i listan
-					list_to_fill.push_back(fdata.cFileName);
-//				}
-//			}
-		}
-		else
-		{
-			if (GetLastError() == ERROR_NO_MORE_FILES)
-			{
-				break;
-			}
-			else
-			{
-				FindClose(dhandle);
-				return false;
-			}
-		}
-	}
-	if (!FindClose(dhandle))
-	{
-		return false;
-	}
+
+	
+
 	return true;
 }

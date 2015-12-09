@@ -1,0 +1,27 @@
+%!PS-Adobe-3.0 
+%% This Postscript program prints an A4 sheet of 5mm graph paper.
+%% Copyright Erik Ahlefeldt 2000. You are free to use this program
+%% for any non-commercial use, but you must get written permission
+%% from the author for commercial use, or if you wish to include it
+%% in any software package or distribution or collection for which
+%% money is charged.
+%
+/heol 579 def
+/veol 834 def
+%  draw horizontal lines 5mm apart
+/xstart 12 def
+/ystart 12 def
+60 { xstart ystart moveto heol ystart lineto 0.2 setlinewidth stroke /ystart ystart 14.173 add def} repeat
+%  draw vertical lines 5mm apart
+/xstart 12 def
+/ystart 12 def
+40 { xstart ystart moveto xstart veol lineto 0.2 setlinewidth stroke /xstart xstart 14.173 add def} repeat
+%  now do bold lines 50mm apart (i.e. every 10th line )
+/xstart 12 def
+/ystart 12 def
+6 { xstart ystart moveto heol ystart lineto 0.6 setlinewidth stroke /ystart ystart 141.73 add def} repeat
+/xstart 12 def
+/ystart 12 def
+5 { xstart ystart moveto xstart veol lineto 0.6 setlinewidth stroke /xstart xstart 141.73 add def} repeat
+showpage
+%%EOF
