@@ -1,2 +1,0 @@
-# Nonogram
-.esp skapare
