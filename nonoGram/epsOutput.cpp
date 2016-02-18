@@ -28,20 +28,13 @@ void epsOutput::createEPSfiles(std::vector<noData> noDataList, std::vector<std::
 		fileOutput.open("../outputFiles/" +fileName);
 
 		fileOutput << "%!PS - Adobe - 3.0 EPSF - 3.0 \n";
-		if (noDataList.at(i).size.at(0) > 55)
-		{
-			fileOutput << "%%BoundingBox: " << (579 - ((noDataList.at(i).size.at(1)) * 7.370078742) - (noDataList.at(i).maxRow * 7.370078742 * 2)) << " -150 " << (((noDataList.at(i).size.at(1)) * 7.370078742)) + (575 - ((noDataList.at(i).size.at(1)) * 7.370078742) + (noDataList.at(i).maxColumn * 7.370078742 * 2)) << " " << (((noDataList.at(i).size.at(0)) * 7.370078742)) + (noDataList.at(i).maxColumn * 7.370078742 * 2) << " \n";
-		}
+		
 
-		if (noDataList.at(i).size.at(0) <= 55)
-		{
-			fileOutput << "%%BoundingBox: " << (579 - ((noDataList.at(i).size.at(0)) * 7.370078742) - (noDataList.at(i).maxRow * 7.370078742 * 2)) << " 0 " << (((noDataList.at(i).size.at(0)) * 7.370078742)) + (575 - ((noDataList.at(i).size.at(0)) * 7.370078742) + (noDataList.at(i).maxColumn * 7.370078742 * 2)) << " " << (((noDataList.at(i).size.at(1)) * 7.370078742)) + (noDataList.at(i).maxRow * 7.370078742 * 2) << " \n";
-		}
+		
+		fileOutput << "%%BoundingBox: " << (578 - ((noDataList.at(i).size.at(0)) * 7.370078742)) - noDataList.at(i).maxColumn * (7.4) << " 11 " << "580 " << ((noDataList.at(i).size.at(1) * 7.370078742) + (noDataList.at(i).maxRow + 2) * (7.4)) + 1 << " \n";
+		//fileOutput << "%%BoundingBox: " << (579 - ((noDataList.at(i).size.at(0)) * 7.370078742)) - noDataList.at(i).maxColumn * (7.5) << " 0 " << (((noDataList.at(i).size.at(0)) * 7.370078742)) + (575 - ((noDataList.at(i).size.at(0)) * 7.370078742) + (noDataList.at(i).maxColumn * 7.370078742 * 2)) << " " << (((noDataList.at(i).size.at(1)) * 7.370078742)) + (noDataList.at(i).maxRow * 7.370078742 * 2) << " \n";
+		
 
-
-	
-		(575 * 1.333 - ((noDataList.at(i).size.at(0) * 1.333) * 7.370078742));
-		(noDataList.at(i).size.at(1) * 7.370078742) + 5.7;
 
 		
 
@@ -71,11 +64,7 @@ void epsOutput::createEPSfiles(std::vector<noData> noDataList, std::vector<std::
 	//	fileOutput << "closepath \n";
 	//	fileOutput << "clip \n";
 
-		if (noDataList.at(i).size.at(0) > 55)
-		{
-			fileOutput << "90 rotate \n";
-			fileOutput << "12 -595 translate \n";
-		}
+	
 		
 //	//CLIP SPACE
 //	fileOutput << "newpath \n";
@@ -107,10 +96,7 @@ void epsOutput::createEPSfiles(std::vector<noData> noDataList, std::vector<std::
 		fileOutput << "/ystart 12 def \n";
 
 
-		if (noDataList.at(i).size.at(0) > 55)
-		{
-			fileOutput << "/heol " << (579 - ((noDataList.at(i).size.at(0)) * 7.370078742)) - noDataList.at(i).maxColumn * (7.4) << " def \n";
-		}
+
 
 	//	fileOutput << "1 0 0 setrgbcolor \n";
 		
@@ -161,7 +147,7 @@ void epsOutput::createEPSfiles(std::vector<noData> noDataList, std::vector<std::
 		fileOutput << vTj << " { xstart ystart moveto xstart veol lineto 1 setlinewidth stroke /xstart xstart 36.85039371 sub def} repeat \n";
 		
 		//Siffrorna
-		fileOutput << "/Arial-Narrow findfont \n";
+		fileOutput << "/Courier findfont \n";
 		fileOutput << "7.5 scalefont \n";
 		fileOutput << "setfont \n";  
 		fileOutput << "newpath \n";
@@ -332,22 +318,11 @@ void epsOutput::createSolutionEPSfiles(std::vector<noData> noDataList, std::vect
 		fileOutput << "%!PS-Adobe-3.0 \n";
 		
 		
-		if (noDataList.at(i).size.at(0) > 55)
-		{
-			fileOutput << "%%BoundingBox: " << (579 - ((noDataList.at(i).size.at(1)) * 7.370078742) - 50) << " -150 " << (((noDataList.at(i).size.at(1)) * 7.370078742)) + (575 - ((noDataList.at(i).size.at(1)) * 7.370078742) + 50) << " " << (((noDataList.at(i).size.at(0)) * 7.370078742)) + 50 << " \n";
-		}
 		
-		if (noDataList.at(i).size.at(0) <= 55)
-		{
-			fileOutput << "%%BoundingBox: " << (579 - ((noDataList.at(i).size.at(0)) * 7.370078742)- 50) << " 0 " << (((noDataList.at(i).size.at(0)) * 7.370078742)) + (575 - ((noDataList.at(i).size.at(0)) * 7.370078742)+ 50) << " " << (((noDataList.at(i).size.at(1)) * 7.370078742))+50 << " \n";
-		}
+		fileOutput << "%%BoundingBox: " << (578 - ((noDataList.at(i).size.at(0)) * 7.370078742)) << " 11 " << "580 " << ((noDataList.at(i).size.at(1) * 7.370078742)) + 13 << " \n";
+		//fileOutput << "%%BoundingBox: " << (579 - ((noDataList.at(i).size.at(0)) * 7.370078742)) - noDataList.at(i).maxColumn * (7.5) << " 0 " << (((noDataList.at(i).size.at(0)) * 7.370078742)) + (575 - ((noDataList.at(i).size.at(0)) * 7.370078742) + (noDataList.at(i).maxColumn * 7.370078742 * 2)) << " " << (((noDataList.at(i).size.at(1)) * 7.370078742)) + (noDataList.at(i).maxRow * 7.370078742 * 2) << " \n";
 		
-
-		if (noDataList.at(i).size.at(0) > 55)
-		{
-			fileOutput << "90 rotate \n";
-			fileOutput << "10 -595 translate \n";
-		}
+		
 
 	//	//CLIP SPACE
 	//	fileOutput << "newpath \n";
