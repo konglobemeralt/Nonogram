@@ -56,8 +56,7 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 				if (lineCount == 2)
 				{
 					std::istringstream is(line);
-					
-
+				
 					int n;
 					while (is >> n) 
 					{
@@ -118,6 +117,8 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 					int count = 0;
 
 					std::istringstream iss(line);
+					
+
 					while (iss >> n)
 					{
 						tmp.row.push_back(n);
@@ -129,6 +130,12 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 
 
 					}
+
+					if (line == "" && lineCount2 != 0)
+					{
+						tmp.row.push_back(0);
+					}
+				
 					    tmp.row.push_back(-1);
 						lineCount2++;
 					
@@ -140,6 +147,7 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 					int count = 0;
 
 					std::istringstream iss(line);
+
 					while (iss >> n)
 					{
 						tmp.column.push_back(n);
@@ -149,6 +157,14 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 							tmp.maxColumn = count;
 						}
 					}
+
+					if (line == "")
+					{
+						tmp.column.push_back(0);
+					}
+
+
+
 					tmp.column.push_back(-1);
 				
 					
@@ -160,8 +176,10 @@ void noData::getData(std::vector<noData> &noDataList_to_fill, std::vector<std::s
 			}
 			textData.close();
 
-			//getRidofExtre -1
+			//getRidofExtre -1 for row change and extra zero
 			tmp.column.pop_back();
+			tmp.column.pop_back();
+			tmp.row.pop_back();
 			tmp.row.pop_back();
 
 			noDataList_to_fill.push_back(tmp);

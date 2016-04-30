@@ -180,10 +180,10 @@ void epsOutput::createEPSfiles(std::vector<noData> noDataList, std::vector<std::
 			fileOutput << "xstart ystart moveto \n";
 			if (noDataList.at(i).column.at(q) == -1)
 			{
-				if (minusCounter == 1)
-				{
-					fileOutput << "(" << 0 << ") dup stringwidth pop 2 div neg 0 rmoveto show  \n";
-				}
+				//if (minusCounter == 1)
+				//{
+				//	fileOutput << "(" << 9999 << ") dup stringwidth pop 2 div neg 0 rmoveto show  \n";
+				//}
 				fileOutput << "/ystart ystart 7.37 sub def \n";
 				fileOutput << "/xstart xReset def \n";
 				minusCounter ++;
@@ -241,10 +241,10 @@ void epsOutput::createEPSfiles(std::vector<noData> noDataList, std::vector<std::
 			fileOutput << "xstart ystart moveto \n";
 			if (noDataList.at(i).row.at(q) == -1)
 			{
-				if (minusCounter == 1)
-				{
-					fileOutput << "(" << 0 << ") dup stringwidth pop 2 div neg 0 rmoveto show  \n";
-				}
+				//if (minusCounter == 1)
+				//{
+				//	fileOutput << "(" << 999 << ") dup stringwidth pop 2 div neg 0 rmoveto show  \n";
+				//}
 				fileOutput << "/xstart xstart 7.370078742 1.333 mul add def \n";
 				fileOutput << "/ystart yReset def \n";
 				minusCounter++;
